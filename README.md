@@ -1,16 +1,242 @@
-# React + Vite
+# 🚀 LogiEdge Billing Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack billing and invoice management system built using **React, Node.js, Express, and PostgreSQL**.
+This application allows users to manage customers, items, generate invoices with GST logic, and view billing history through a dashboard.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📌 Features
 
-## React Compiler
+### 🟢 Master Module
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Add and manage customers
+* Add and manage items
+* View customers and items in card-based UI
 
-## Expanding the ESLint configuration
+### 🟡 Billing Module
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* Select customer and items
+* Add items with quantity to cart
+* Automatic price calculation
+* GST logic:
+
+  * If customer has GST → No GST applied
+  * If customer does not have GST → 18% GST applied
+* Generate invoice with unique Invoice ID
+
+### 🔵 Invoice System
+
+* Unique Invoice ID (Format: `INVC123456`)
+* Stores invoice data in PostgreSQL
+* Stores item-wise billing details
+
+### 🟣 Dashboard Module
+
+* View all generated invoices
+* Search invoice by Invoice ID
+* Display customer-wise invoice details
+
+### 📄 PDF Feature
+
+* Download invoice as PDF
+* Includes:
+
+  * Invoice ID
+  * Customer details
+  * Items list
+  * GST & Total
+
+---
+
+## 🧱 Tech Stack
+
+### Frontend
+
+* React JS (Create React App)
+* Axios
+* React Router DOM
+* React Icons
+* HTML/CSS
+
+### Backend
+
+* Node.js
+* Express.js
+
+### Database
+
+* PostgreSQL
+
+### Additional Libraries
+
+* jsPDF (PDF generation)
+* html2canvas (UI capture)
+
+---
+
+## 📁 Project Structure
+
+```
+project-root/
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── App.js
+│   │   ├── index.js
+│   │   └── index.css
+│
+├── backend/
+│   ├── db.js
+│   ├── index.js
+│   └── routes/
+│
+└── README.md
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### 🔹 1. Clone Repository
+
+```
+git clone https://github.com/your-username/logiedge-billing-dashboard.git
+cd logiedge-billing-dashboard
+```
+
+---
+
+### 🔹 2. Setup Backend
+
+```
+cd backend
+npm install
+node index.js
+```
+
+👉 Server runs on:
+
+```
+http://localhost:5000
+```
+
+---
+
+### 🔹 3. Setup Frontend
+
+```
+cd frontend
+npm install
+npm start
+```
+
+👉 App runs on:
+
+```
+http://localhost:3000
+```
+
+---
+
+### 🔹 4. Setup PostgreSQL
+
+* Create database: `logiedge_db`
+* Create required tables:
+
+  * customers
+  * items
+  * invoices
+  * invoice_items
+
+---
+
+## 🧠 Business Logic
+
+### GST Rule
+
+```
+IF customer has GST AND is active:
+    → No GST applied
+ELSE:
+    → Apply 18% GST
+```
+
+---
+
+### Invoice ID Generation
+
+```
+INVC + 6 digit random number
+Example: INVC482193
+```
+
+Ensures uniqueness using database validation.
+
+---
+
+## 🧪 API Endpoints
+
+### Customers
+
+* GET `/customers`
+* POST `/customers`
+
+### Items
+
+* GET `/items`
+* POST `/items`
+
+### Invoices
+
+* POST `/invoice/create`
+* GET `/invoice/all`
+* GET `/invoice/:id`
+
+---
+
+## 🎯 Screens
+
+* Dashboard
+* Customer Management
+* Item Management
+* Billing Page
+* Invoice View
+
+---
+
+## 🚀 Future Improvements
+
+* 📊 Analytics Dashboard (Charts)
+* 🌙 Dark Mode
+* 📱 Mobile Responsiveness
+* 🔐 Authentication System
+* 📦 Deployment (Render + Vercel)
+
+---
+
+## 🏁 Conclusion
+
+This project demonstrates:
+
+* Full-stack development
+* API integration
+* Database design
+* Real-world business logic implementation
+
+---
+
+## 👨‍💻 Author
+
+**Divyansh Saxena**
+
+B.Tech Student | Full Stack Developer
+
+---
+
+## ⭐ Show Your Support
+
+If you like this project, give it a ⭐ on GitHub!
