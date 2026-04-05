@@ -34,7 +34,7 @@ export default function Sidebar() {
 
   return (
     <nav className="sidebar" aria-label="Main navigation">
-      <div className="sidebar__brand">LogiEdge</div>
+      {/* <div className="sidebar__brand">LogiEdge</div> */}
       <div className="sidebar__tag">Billing Dashboard</div>
       <ul className="sidebar__nav">
         <li>

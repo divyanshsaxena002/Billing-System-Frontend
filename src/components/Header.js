@@ -18,7 +18,7 @@ export default function Header() {
   return (
     <header className="header">
       <div>
-        <h1 className="header__title">LogiEdge Billing Dashboard</h1>
+        <h1 className="header__title">Billing Dashboard</h1>
         <p className="header__subtitle">Operations &amp; invoicing</p>
       </div>
       <div className="header__actions">
