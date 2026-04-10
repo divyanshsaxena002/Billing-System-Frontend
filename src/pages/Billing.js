@@ -34,7 +34,7 @@ export default function Billing() {
       } catch (err) {
         console.error('Failed to fetch billing data', err);
         if (!cancelled) {
-          setLoadError('Could not load customers or items.');
+          setLoadError(err.userMessage || 'Could not load customers or items. Is the backend running?');
           setCustomers([]);
           setItems([]);
         }
@@ -114,7 +114,7 @@ export default function Billing() {
       setLines([]);
     } catch (err) {
       console.error('Failed to create invoice', err);
-      setInvoiceError('Could not generate invoice. Check server logs.');
+      setInvoiceError(err.userMessage || 'Could not generate invoice. Please try again.');
     } finally {
       setInvoiceSubmitting(false);
     }

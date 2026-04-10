@@ -26,7 +26,7 @@ export default function Dashboard() {
       } catch (err) {
         console.error('Failed to fetch invoices', err);
         if (!cancelled) {
-          setLoadError('Could not load invoices.');
+          setLoadError(err.userMessage || 'Could not load invoices. Is the backend running?');
           setInvoices([]);
         }
       } finally {
@@ -55,7 +55,7 @@ export default function Dashboard() {
     } catch (err) {
       console.error('Failed to fetch invoice', err);
       setSearchResult(null);
-      setSearchError('Invoice not found or request failed.');
+      setSearchError(err.userMessage || 'Invoice not found or request failed.');
     } finally {
       setSearching(false);
     }

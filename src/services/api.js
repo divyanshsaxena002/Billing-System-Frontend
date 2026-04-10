@@ -1,10 +1,33 @@
 import axios from 'axios';
 
+const BACKEND_URL =
+  process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 export const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+  baseURL: BACKEND_URL,
   headers: { 'Content-Type': 'application/json' },
-  timeout: 30000,
+  timeout: 60000, // 60s — Render free tier can take ~30s to wake up
 });
+
+// ─── Global error interceptor ────────────────────────────────────────────────
+api.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    if (!err.response) {
+      // Network error / timeout — likely the backend is still waking up
+      err.userMessage =
+        'Cannot reach the server. If this is the first request, the backend may be waking up — please wait 30 seconds and try again.';
+    } else if (err.response.status >= 500) {
+      err.userMessage = 'Server error. Please try again in a moment.';
+    } else if (err.response.status === 404) {
+      err.userMessage = 'Not found.';
+    } else {
+      err.userMessage =
+        err.response?.data?.error || 'Something went wrong. Please try again.';
+    }
+    return Promise.reject(err);
+  }
+);
 
 function normalizeStatus(value) {
   if (typeof value === 'boolean') return value ? 'Active' : 'Inactive';
@@ -40,7 +63,8 @@ export function mapCustomer(row) {
 export function mapItem(row) {
   if (!row || typeof row !== 'object') return null;
   const rawPrice = row.selling_price ?? row.price ?? row.sellingPrice ?? 0;
-  const sellingPrice = typeof rawPrice === 'string' ? parseFloat(rawPrice) : Number(rawPrice);
+  const sellingPrice =
+    typeof rawPrice === 'string' ? parseFloat(rawPrice) : Number(rawPrice);
   const status =
     row.is_active !== undefined && row.is_active !== null
       ? normalizeStatus(row.is_active)
