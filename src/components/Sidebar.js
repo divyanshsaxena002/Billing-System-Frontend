@@ -26,15 +26,22 @@ function IconReceipt({ className }) {
   );
 }
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const masterActive = masterPaths.has(pathname);
 
+  const handleNavClick = (path) => {
+    navigate(path);
+    if (onClose) onClose();
+  };
+
   return (
-    <nav className="sidebar" aria-label="Main navigation">
-      {/* <div className="sidebar__brand">LogiEdge</div> */}
+    <nav 
+      className={`sidebar ${isOpen ? 'sidebar--open' : ''}`}
+      aria-label="Main navigation"
+    >
       <div className="sidebar__tag">Billing Dashboard</div>
       <ul className="sidebar__nav">
         <li>
@@ -43,6 +50,7 @@ export default function Sidebar() {
             className={({ isActive }) =>
               ['sidebar__link', isActive && 'sidebar__link--active'].filter(Boolean).join(' ')
             }
+            onClick={onClose}
           >
             <IconDashboard className="sidebar__icon" />
             Dashboard
@@ -52,7 +60,7 @@ export default function Sidebar() {
           <button
             type="button"
             className={['sidebar__link', masterActive && 'sidebar__link--active'].filter(Boolean).join(' ')}
-            onClick={() => navigate('/')}
+            onClick={() => handleNavClick('/')}
           >
             <IconStorage className="sidebar__icon" />
             Master
@@ -62,6 +70,7 @@ export default function Sidebar() {
           <NavLink
             to="/billing"
             className={({ isActive }) => ['sidebar__link', isActive && 'sidebar__link--active'].filter(Boolean).join(' ')}
+            onClick={onClose}
           >
             <IconReceipt className="sidebar__icon" />
             Billing

@@ -14,10 +14,26 @@ function IconUser() {
   );
 }
 
-export default function Header() {
+function IconMenu() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+    </svg>
+  );
+}
+
+export default function Header({ onMenuClick }) {
   return (
     <header className="header">
-      <div>
+      <button 
+        type="button" 
+        className="header__menu-btn" 
+        onClick={onMenuClick}
+        aria-label="Toggle sidebar"
+      >
+        <IconMenu />
+      </button>
+      <div className="header__brand-section">
         <h1 className="header__title">Billing Dashboard</h1>
         <p className="header__subtitle">Operations &amp; invoicing</p>
       </div>
