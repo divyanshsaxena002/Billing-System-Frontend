@@ -20,11 +20,11 @@ export default function AddCustomer() {
     try {
       setSubmitting(true);
       await createCustomer({
-        cust_name: form.name.trim(),
-        address: form.address,
-        pan: form.pan,
-        gst: form.gst,
-        is_active: form.status === 'Active',
+        cust_name:    form.name.trim(),
+        cust_address: form.address,
+        cust_pan:     form.pan,
+        cust_gst:     form.gst,
+        is_active:    form.status === 'Active' ? 'Y' : 'N',
       });
       navigate('/customers');
     } catch (err) {

@@ -19,8 +19,8 @@ export default function AddItem() {
       setSubmitting(true);
       await createItem({
         item_name: form.name.trim(),
-        selling_price: form.sellingPrice === '' ? 0 : Number(form.sellingPrice),
-        is_active: form.status === 'Active',
+        price:     form.sellingPrice === '' ? 0 : Number(form.sellingPrice),
+        is_active: form.status === 'Active' ? 'Y' : 'N',
       });
       navigate('/items');
     } catch (err) {
