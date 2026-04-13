@@ -99,6 +99,26 @@ export async function createItem(payload) {
   return data;
 }
 
+export async function updateCustomerStatus(customerId) {
+  const { data } = await api.patch(`/customer/${customerId}/toggle`);
+  return data;
+}
+
+export async function updateItemStatus(itemId) {
+  const { data } = await api.patch(`/item/${itemId}/toggle`);
+  return data;
+}
+
+export async function updateAllCustomersStatus(isActive) {
+  const { data } = await api.patch('/customers/toggle-all', { is_active: isActive });
+  return data;
+}
+
+export async function updateAllItemsStatus(isActive) {
+  const { data } = await api.patch('/items/toggle-all', { is_active: isActive });
+  return data;
+}
+
 export async function createInvoice(payload) {
   const { data } = await api.post('/invoice/create', payload);
   return data;

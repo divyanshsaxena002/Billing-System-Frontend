@@ -28,8 +28,8 @@ export default function Billing() {
         setLoading(true);
         const [customerList, itemList] = await Promise.all([fetchCustomers(), fetchItems()]);
         if (!cancelled) {
-          setCustomers(customerList);
-          setItems(itemList);
+          setCustomers(customerList.filter(c => c.status === 'Active'));
+          setItems(itemList.filter(i => i.status === 'Active'));
         }
       } catch (err) {
         console.error('Failed to fetch billing data', err);
